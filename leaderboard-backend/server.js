@@ -1,15 +1,19 @@
 // leaderboard-backend/server.js
-require('dotenv').config(); 
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
-const cors = require('cors'); // Required for frontend to communicate with backend
+const cors = require('cors');
+const connectDB = require('./config/db'); // Import the DB connection
+
+// Connect to database
+connectDB();
 
 const app = express();
-const PORT = process.env.PORT || 5000; // Use port from environment variable or default to 5000
+const PORT = process.env.PORT || 5000;
 
 // Middleware
-app.use(cors()); // Enable CORS for all routes
-app.use(express.json()); // Parse JSON request bodies
+app.use(cors());
+app.use(express.json());
 
 // Basic route for testing
 app.get('/', (req, res) => {
