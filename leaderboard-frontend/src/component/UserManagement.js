@@ -7,7 +7,7 @@ import { Label } from '../components/ui/label';
 import { Alert, AlertDescription, AlertTitle } from '../components/ui/alert';
 import { Terminal, UserPlus, CheckCircle } from 'lucide-react';
 
-const API_URL = 'https://threew-assignment-h03f.onrender.com/api';
+const API_URL = process.env.REACT_APP_API_URL;
 
 function UserManagement({ onUserAdded }) {
     const [newUserName, setNewUserName] = useState('');
