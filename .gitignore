@@ -1,2 +1,4 @@
 leaderboard-backend/node_modules/
 leaderboard-backend/.env
+
+frontend/node_modules/
