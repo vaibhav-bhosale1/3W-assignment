@@ -4,9 +4,10 @@ import axios from 'axios';
 import UserManagement from './components/UserManagement';
 import ClaimPoints from './components/ClaimPoints';
 import Leaderboard from './components/Leaderboard';
-import ClaimHistory from './components/ClaimHistory'; // Optional component
+import ClaimHistory from './components/ClaimHistory';
+import { cn } from './lib/utils'; // Import cn for conditional classes
 
-const API_URL = 'http://localhost:5000/api'; // Backend API URL
+const API_URL = 'http://localhost:5000/api';
 
 function App() {
     const [users, setUsers] = useState([]);
@@ -16,12 +17,10 @@ function App() {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
-    // Fetch users and leaderboard on component mount
     useEffect(() => {
         fetchData();
-        // Set up an interval for real-time updates (e.g., every 5 seconds)
         const intervalId = setInterval(fetchData, 5000);
-        return () => clearInterval(intervalId); // Clear interval on unmount
+        return () => clearInterval(intervalId);
     }, []);
 
     const fetchData = async () => {
@@ -37,7 +36,7 @@ function App() {
             setLeaderboard(leaderboardRes.data);
             setClaimHistory(historyRes.data);
             if (usersRes.data.length > 0 && !selectedUser) {
-                setSelectedUser(usersRes.data[0]._id); // Select first user by default
+                setSelectedUser(usersRes.data[0]._id);
             }
         } catch (err) {
             console.error('Error fetching data:', err);
@@ -48,24 +47,26 @@ function App() {
     };
 
     const handleUserAdded = () => {
-        fetchData(); // Refetch all data after a new user is added
+        fetchData();
     };
 
     const handlePointsClaimed = () => {
-        fetchData(); // Refetch all data after points are claimed
+        fetchData();
     };
 
     return (
-        <div className="container">
-            <h1>🏆 Leaderboard System 🏆</h1>
+        <div className="container p-8 bg-white rounded-lg shadow-md max-w-4xl w-full grid grid-cols-1 md:grid-cols-2 gap-8">
+            <h1 className="col-span-full text-center text-4xl font-bold text-blue-700 mb-6">
+                🏆 Leaderboard System 🏆
+            </h1>
 
-            <section>
-                <h2 className="section-title">User Management</h2>
+            <section className="col-span-1 p-6 border rounded-md">
+                <h2 className="text-2xl font-semibold text-blue-600 mb-4 text-center">User Management</h2>
                 <UserManagement onUserAdded={handleUserAdded} />
             </section>
 
-            <section>
-                <h2 className="section-title">Claim Points</h2>
+            <section className="col-span-1 p-6 border rounded-md">
+                <h2 className="text-2xl font-semibold text-blue-600 mb-4 text-center">Claim Points</h2>
                 <ClaimPoints
                     users={users}
                     selectedUser={selectedUser}
@@ -74,17 +75,17 @@ function App() {
                 />
             </section>
 
-            <section style={{ gridColumn: '1 / -1' }}> {/* Make leaderboard span full width */}
-                <h2 className="section-title">Dynamic Leaderboard</h2>
-                {loading && <p>Loading leaderboard...</p>}
-                {error && <p className="error-message">{error}</p>}
+            <section className="col-span-full p-6 border rounded-md">
+                <h2 className="text-2xl font-semibold text-blue-600 mb-4 text-center">Dynamic Leaderboard</h2>
+                {loading && <p className="text-center text-gray-500">Loading leaderboard...</p>}
+                {error && <p className="text-center text-red-500">{error}</p>}
                 {!loading && !error && <Leaderboard leaderboard={leaderboard} />}
             </section>
 
-            <section style={{ gridColumn: '1 / -1' }}> {/* Make history span full width */}
-                <h2 className="section-title">Claim History</h2>
-                {loading && <p>Loading claim history...</p>}
-                {error && <p className="error-message">{error}</p>}
+            <section className="col-span-full p-6 border rounded-md">
+                <h2 className="text-2xl font-semibold text-blue-600 mb-4 text-center">Claim History</h2>
+                {loading && <p className="text-center text-gray-500">Loading claim history...</p>}
+                {error && <p className="text-center text-red-500">{error}</p>}
                 {!loading && !error && <ClaimHistory claimHistory={claimHistory} />}
             </section>
         </div>
