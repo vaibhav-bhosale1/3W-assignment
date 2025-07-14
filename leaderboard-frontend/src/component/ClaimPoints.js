@@ -6,7 +6,7 @@ import { Label } from '../components/ui/label';
 import { Alert, AlertDescription, AlertTitle } from '../components/ui/alert';
 import { Sparkles, Terminal, CheckCircle } from 'lucide-react';
 
-const API_URL = 'http://localhost:5000/api';
+const API_URL = 'https://threew-assignment-h03f.onrender.com/api';
 
 function ClaimPoints({ users, selectedUser, setSelectedUser, onPointsClaimed }) {
     const [claimedPoints, setClaimedPoints] = useState(null);

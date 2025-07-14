@@ -7,7 +7,7 @@ import ClaimPoints from './component/ClaimPoints';
 import Leaderboard from './component/Leaderboard';
 import ClaimHistory from './component/ClaimHistory';
 
-const API_URL = 'http://localhost:5000/api';
+const API_URL = 'https://threew-assignment-h03f.onrender.com/api';
 
 function App() {
     const [users, setUsers] = useState([]);
